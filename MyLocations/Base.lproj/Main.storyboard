@@ -25,6 +25,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSG-lh-xXC">
                                 <rect key="frame" x="142.5" y="743" width="129" height="30"/>
                                 <state key="normal" title="Get My Locationon"/>
+                                <connections>
+                                    <action selector="updateLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d2r-zQ-z1G"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="FKq-Nr-sjv" userLabel="Location Info">
                                 <rect key="frame" x="30" y="159.5" width="216" height="117.5"/>
@@ -96,6 +99,12 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Tag" id="UF7-NO-ypY"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="XSo-aJ-OLZ" id="Z5T-VI-80m"/>
+                        <outlet property="latitudeLabel" destination="DpW-Vw-sjc" id="5Yt-7m-O70"/>
+                        <outlet property="longitudeLabel" destination="ZUY-eV-8ei" id="jMF-X0-ME3"/>
+                        <outlet property="messageLabel" destination="aFR-HJ-DBt" id="88j-MB-pAr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -107,6 +116,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="GQt-AT-auP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8j6-oi-5BD">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
