@@ -9,6 +9,17 @@ import Foundation
 import CoreLocation
 import Contacts
 
+struct LocationMeta {
+    let location: CLLocation
+    let address: String
+    let date = Date()
+    
+    var Description = ""
+    var photoUrl: String?
+    var category: String?
+}
+
+
 class LocationHandler: NSObject {
     
     lazy var locationManager: CLLocationManager = {

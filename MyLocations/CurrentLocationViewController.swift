@@ -16,11 +16,21 @@ class CurrentLocationViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var tagButton: UIButton!
     
-    let locationHelper = LocationHandler()
+    private let locationHelper = LocationHandler()
+    private let tagViewSegueId = "TagCurrentLocation"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == tagViewSegueId, let controller = segue.destination as? TagViewController {
+            if let location = locationHelper.currentLocation, let address = locationHelper.address {
+                let locationInfo = LocationMeta(location: location, address: address)
+                controller.locationInfo = locationInfo
+            }
+        }
     }
 
     @IBAction func updateLocation(_ sender: Any) {
