@@ -30,10 +30,10 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="FKq-Nr-sjv" userLabel="Location Info">
-                                <rect key="frame" x="30" y="159.5" width="216" height="117.5"/>
+                                <rect key="frame" x="30" y="159.5" width="354" height="117.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="HL8-0S-KrH">
-                                        <rect key="frame" x="0.0" y="0.0" width="216" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edv-Yf-AU7">
                                                 <rect key="frame" x="0.0" y="0.0" width="85.5" height="20.5"/>
@@ -42,7 +42,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpW-Vw-sjc">
-                                                <rect key="frame" x="97.5" y="0.0" width="118.5" height="20.5"/>
+                                                <rect key="frame" x="97.5" y="0.0" width="256.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="y5h-mc-ViJ">
-                                        <rect key="frame" x="0.0" y="48.5" width="216" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="48.5" width="354" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDv-et-oOp">
                                                 <rect key="frame" x="0.0" y="0.0" width="85.5" height="20.5"/>
@@ -62,15 +62,15 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lontitude Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUY-eV-8ei">
-                                                <rect key="frame" x="97.5" y="0.0" width="118.5" height="20.5"/>
+                                                <rect key="frame" x="97.5" y="0.0" width="256.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSo-aJ-OLZ">
-                                        <rect key="frame" x="0.0" y="97" width="216" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSo-aJ-OLZ">
+                                        <rect key="frame" x="0.0" y="97" width="354" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -80,7 +80,7 @@
                                     <constraint firstItem="TDv-et-oOp" firstAttribute="width" secondItem="edv-Yf-AU7" secondAttribute="width" id="NHf-GT-QRK"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GJ-i8-DQH">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7GJ-i8-DQH">
                                 <rect key="frame" x="163" y="401" width="88" height="30"/>
                                 <state key="normal" title="Tag Location"/>
                             </button>
@@ -95,6 +95,7 @@
                             <constraint firstItem="aFR-HJ-DBt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="45" id="Uc5-qj-Ihe"/>
                             <constraint firstItem="FKq-Nr-sjv" firstAttribute="top" secondItem="aFR-HJ-DBt" secondAttribute="bottom" constant="50" id="WAl-sg-yds"/>
                             <constraint firstItem="7GJ-i8-DQH" firstAttribute="top" secondItem="FKq-Nr-sjv" secondAttribute="bottom" constant="124" id="Y4E-MY-FYf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FKq-Nr-sjv" secondAttribute="trailing" constant="30" id="ltc-eJ-Be9"/>
                             <constraint firstItem="FSG-lh-xXC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="xbL-uj-a5T"/>
                         </constraints>
                     </view>
@@ -104,6 +105,7 @@
                         <outlet property="latitudeLabel" destination="DpW-Vw-sjc" id="5Yt-7m-O70"/>
                         <outlet property="longitudeLabel" destination="ZUY-eV-8ei" id="jMF-X0-ME3"/>
                         <outlet property="messageLabel" destination="aFR-HJ-DBt" id="88j-MB-pAr"/>
+                        <outlet property="tagButton" destination="7GJ-i8-DQH" id="BoK-TI-cYq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
