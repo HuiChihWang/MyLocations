@@ -16,7 +16,7 @@ struct LocationMeta {
     
     var Description = ""
     var photoUrl: String?
-    var category: String?
+    var category = Category.none
 }
 
 
@@ -138,6 +138,17 @@ enum LocationStatus: String {
     case unknown = "Error Getting Location"
     case networkIssue = "Please Turn on Mobile Network"
     case initial = "Tap 'Get My Location' to Start"
+}
+
+enum Category: String, CaseIterable {
+    case none = "No Category"
+    case bar = "Bar"
+    case club = "Club"
+    case grocery = "Grocery Store"
+    case history = "Historical Building"
+    case house = "House"
+    case landmark = "Land Mark"
+    case coffee = "Cafe"
 }
 
 

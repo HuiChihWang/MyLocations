@@ -115,7 +115,7 @@
             </objects>
             <point key="canvasLocation" x="1910.144927536232" y="93.75"/>
         </scene>
-        <!--Tag View Controller-->
+        <!--Edit Location-->
         <scene sceneID="2vo-q4-l8F">
             <objects>
                 <tableViewController id="EBA-Z8-6CJ" customClass="TagViewController" customModule="MyLocations" customModuleProvider="target" sceneMemberID="viewController">
@@ -176,6 +176,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="dsf-Qa-TBh" kind="show" identifier="PickCategory" id="l6b-jZ-Ws3"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -306,9 +309,17 @@
                             <outlet property="delegate" destination="EBA-Z8-6CJ" id="JsX-U4-SHa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3v6-ok-3MB">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ycb-mY-UaH"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="4nf-1K-mAC"/>
+                    <navigationItem key="navigationItem" title="Edit Location" id="3v6-ok-3MB">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ycb-mY-UaH">
+                            <connections>
+                                <action selector="cancel:" destination="EBA-Z8-6CJ" id="zgt-N8-bRB"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="4nf-1K-mAC">
+                            <connections>
+                                <action selector="done:" destination="EBA-Z8-6CJ" id="WbJ-V2-Yqt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addressLabel" destination="Zvu-hl-Vsi" id="TCK-jF-QVZ"/>
@@ -321,6 +332,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pAJ-ze-jOA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2797.1014492753625" y="93.75"/>
+        </scene>
+        <!--Choose Category-->
+        <scene sceneID="rcG-3y-75Y">
+            <objects>
+                <tableViewController id="dsf-Qa-TBh" customClass="CategoryPickerTableViewController" customModule="MyLocations" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lfd-se-uO1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" textLabel="v0M-5u-YrX" detailTextLabel="MZZ-pL-6Ss" style="IBUITableViewCellStyleValue1" id="IM8-p9-raF">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IM8-p9-raF" id="SHH-8a-1rG">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v0M-5u-YrX">
+                                            <rect key="frame" x="20" y="12" width="33" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MZZ-pL-6Ss">
+                                            <rect key="frame" x="350" y="12" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dsf-Qa-TBh" id="t7D-95-DlH"/>
+                            <outlet property="delegate" destination="dsf-Qa-TBh" id="a1r-2f-nzV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Choose Category" id="mxr-S5-bUc">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="TPn-y3-ac7">
+                            <connections>
+                                <action selector="cancel:" destination="dsf-Qa-TBh" id="QWY-qY-cSx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="Rqx-aB-KlD" kind="unwind" identifier="gobackTagView" unwindAction="unwindToTagView:" id="GhH-OE-FGh"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ia-4q-Hsj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Rqx-aB-KlD" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3659" y="94"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gjN-uP-AuC">

@@ -1,31 +1,19 @@
 //
-//  TagViewController.swift
+//  CategoryPickerTableViewController.swift
 //  MyLocations
 //
 //  Created by Hui Chih Wang on 2021/4/24.
 //
 
 import UIKit
-import CoreLocation
 
-class TagViewController: UITableViewController {
+class CategoryPickerTableViewController: UITableViewController {
 
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var latitudeLabel: UILabel!
-    @IBOutlet weak var longitudeLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter
-    }()
+    private let categories = Category.allCases
+    private let categoryCellId = "CategoryCell"
+    private let pickCategorySegueId = "gobackTagView"
     
-    var locationInfo = LocationMeta(location: CLLocation(), address: "")
-    
-    private let pickCategorySegueId = "PickCategory"
+    var seletedCategory = Category.none
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,46 +23,41 @@ class TagViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        configureInfo(with: locationInfo)
     }
     
-    
-    private func configureInfo(with locationInfo: LocationMeta) {
-        latitudeLabel.text = String(format: "%.8f", locationInfo.location.coordinate.latitude)
-        longitudeLabel.text = String(format: "%.8f", locationInfo.location.coordinate.longitude)
-        addressLabel.text = locationInfo.address
-        dateLabel.text = dateFormatter.string(from: locationInfo.date)
-    }
-    
-    @IBAction func done(_ sender: Any) {
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == pickCategorySegueId, let controller = segue.destination as? TagViewController {
+//            seletedCategory = categories
+//        }
+//    }
     
     @IBAction func cancel(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == pickCategorySegueId, let controller = segue.destination as? CategoryPickerTableViewController {
-            controller.seletedCategory = Category(rawValue: categoryLabel.text!) ?? .none
-        }
-    }
-    @IBAction func unwindToTagView(_ unwindSegue: UIStoryboardSegue) {
-        if let controller = unwindSegue.source as? CategoryPickerTableViewController {
-            print("unwind from category view to tag view")
-            categoryLabel.text = controller.seletedCategory.rawValue
-        }
-    }
     
-    /*
+    // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+    }
+
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: categoryCellId, for: indexPath)
 
         // Configure the cell...
+        let category = categories[indexPath.row]
+        cell.textLabel?.text = category.rawValue
+        cell.detailTextLabel?.text = category == seletedCategory ? "✔︎" : ""
 
         return cell
     }
-    */
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        seletedCategory = categories[indexPath.row]
+        performSegue(withIdentifier: pickCategorySegueId, sender: nil)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -119,9 +102,5 @@ class TagViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-//    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        return nil
-//    }
 
 }
