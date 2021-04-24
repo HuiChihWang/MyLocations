@@ -53,6 +53,8 @@ class TagViewController: UITableViewController {
     @IBAction func cancel(_ sender: Any) {
     }
     
+    
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == pickCategorySegueId, let controller = segue.destination as? CategoryPickerTableViewController {
             controller.seletedCategory = Category(rawValue: categoryLabel.text!) ?? .none
@@ -64,6 +66,11 @@ class TagViewController: UITableViewController {
             categoryLabel.text = controller.seletedCategory.rawValue
         }
     }
+    
+        override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+            return indexPath.section != 3 ? indexPath : nil
+        }
+
     
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,19 +116,6 @@ class TagViewController: UITableViewController {
         return true
     }
     */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-//    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        return nil
-//    }
 
 }
