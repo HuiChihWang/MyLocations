@@ -10,6 +10,8 @@ import UIKit
 class LocationsTableViewController: UITableViewController {
 
     private let locationCellId = "LocationCell"
+    private let locations = Locations()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,28 +21,49 @@ class LocationsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        locations.addLocation(with: LocationMeta(description: "None-A", category: .none))
+        locations.addLocation(with: LocationMeta(description: "None-B", category: .none))
+        locations.addLocation(with: LocationMeta(description: "Bar-A", category: .bar))
+        locations.addLocation(with: LocationMeta(description: "Bar-B", category: .bar))
+        locations.addLocation(with: LocationMeta(description: "Bar-C", category: .bar))
+        locations.addLocation(with: LocationMeta(description: "Club-A", category: .club))
+        locations.addLocation(with: LocationMeta(description: "Coffee-A", category: .coffee))
+        
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return locations.numberOfType
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return locations.getCategory(by: section)?.rawValue
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        if let category = locations.getCategory(by: section) {
+            return locations.getLocationsCountByCategory(with: category)
+        }
+        return 0
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Test Section"
-    }
+
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: locationCellId, for: indexPath)
 
-        cell.textLabel?.text = "Test Title"
-        cell.detailTextLabel?.text = "Test Subtitle"
+        
+        if let category = locations.getCategory(by: indexPath.section), let location = locations.getLocation(in: category, with: indexPath.row) {
+            cell.textLabel?.text = location.description
+            cell.detailTextLabel?.text = location.address
+        }
         
         return cell
     }
@@ -54,17 +77,22 @@ class LocationsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+//             Delete the row from the data source
+            if let category = locations.getCategory(by: indexPath.section), let location = locations.getLocation(in: category, with: indexPath.row) {
+                locations.removeLocation(with: location)
+            }
+            tableView.reloadData()
+//            tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.

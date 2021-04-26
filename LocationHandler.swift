@@ -9,20 +9,6 @@ import Foundation
 import CoreLocation
 import Contacts
 
-struct LocationMeta {
-    let location: CLLocation
-    let placemark: CLPlacemark?
-    let date = Date()
-    
-    var description = ""
-    var photoUrl: String?
-    var category = Category.none
-        
-    var address: String {
-        placemark?.formattedAddress ?? "Unknown"
-    }
-        
-}
 
 
 class LocationHandler: NSObject {
