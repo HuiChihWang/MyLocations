@@ -10,6 +10,8 @@ import UIKit
 class LocationsTableViewController: UITableViewController {
 
     private let locationCellId = "LocationCell"
+    private let editSegueId = "EditLocation"
+    
     private var locations: Locations {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.locations
@@ -27,6 +29,21 @@ class LocationsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+    }
+    
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == editSegueId {
+            if let controller = segue.destination as? TagViewController, let location = sender as? LocationMeta {
+                controller.locationInfo = location
+            }
+        }
     }
     
     
@@ -63,6 +80,11 @@ class LocationsTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let category = locations.getCategory(by: indexPath.section), let location = locations.getLocation(in: category, with: indexPath.row) {
+            performSegue(withIdentifier: editSegueId, sender: location)
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -104,14 +126,6 @@ class LocationsTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

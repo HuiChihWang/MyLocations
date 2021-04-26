@@ -23,6 +23,10 @@ struct LocationMeta: Identifiable {
         placemark?.formattedAddress ?? "Unknown"
     }
     
+    var isInCoreData: Bool {
+        return locationCore != nil
+    }
+    
     var id: String {
         description
     }
@@ -112,9 +116,24 @@ class Locations {
             location.toLocation(context: container.viewContext)
         }
     }
+    
+    public func updateLocation(with locationUpdate: LocationMeta) {
+        var locationOld: LocationMeta?
+        
+        mapTypeLocations.forEach { category, locations in
+            if let index = locations.firstIndex(where: {$0.locationCore === locationUpdate.locationCore}) {
+                locationOld = locations[index]
+            }
+        }
+        
+        if let location = locationOld {
+            removeLocation(with: location)
+            addLocation(with: locationUpdate)
+        }
+    }
         
     public func removeLocation(with location: LocationMeta) {
-        if var locations = mapTypeLocations[location.category], let index = locations.firstIndex(where: {$0.id == location.id}) {
+        if var locations = mapTypeLocations[location.category], let index = locations.firstIndex(where: {$0.id == location.id}){
             
             if let locationCore = locations[index].locationCore {
                 container.viewContext.delete(locationCore)

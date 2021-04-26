@@ -466,6 +466,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Locations" id="Z9C-Kp-Hhc"/>
+                    <connections>
+                        <segue destination="EBA-Z8-6CJ" kind="show" identifier="EditLocation" id="EJL-Mp-3DT"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="08O-dZ-FzL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -491,6 +494,9 @@
             <point key="canvasLocation" x="89.855072463768124" y="835.71428571428567"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="EJL-Mp-3DT"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="location.fill" catalog="system" width="128" height="121"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>

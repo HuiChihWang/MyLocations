@@ -51,6 +51,8 @@ class TagViewController: UITableViewController {
         longitudeLabel.text = String(format: "%.8f", locationInfo.location.coordinate.longitude)
         addressLabel.text = locationInfo.address
         dateLabel.text = dateFormatter.string(from: locationInfo.date)
+        categoryLabel.text = locationInfo.category.rawValue
+        descriptionText.text = locationInfo.description
     }
     
     // TODO: Test here
@@ -58,7 +60,12 @@ class TagViewController: UITableViewController {
         locationInfo.category = Category(rawValue: categoryLabel.text!) ?? .none
         locationInfo.description = descriptionText.text
         
-        locations.addLocation(with: locationInfo)
+        if locationInfo.isInCoreData {
+            locations.updateLocation(with: locationInfo)
+        }
+        else {
+            locations.addLocation(with: locationInfo)
+        }
         
 //        let appDelegate = UIApplication.shared.delegate as? AppDelegate
 //
