@@ -26,6 +26,11 @@ class TagViewController: UITableViewController {
     
     var locationInfo = LocationMeta(location: CLLocation(), placemark: nil)
     
+    private var locations: Locations {
+        let appDelegate =  UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.locations
+    }
+    
     private let pickCategorySegueId = "PickCategory"
     
     override func viewDidLoad() {
@@ -53,21 +58,24 @@ class TagViewController: UITableViewController {
         locationInfo.category = Category(rawValue: categoryLabel.text!) ?? .none
         locationInfo.description = descriptionText.text
         
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        locations.addLocation(with: locationInfo)
         
-        if let container = appDelegate?.persistentContainer {
-            let location = Location(context: container.viewContext)
-            location.category = locationInfo.category.rawValue
-            location.localDescription = locationInfo.description
-            location.latitude = locationInfo.location.coordinate.latitude
-            location.longitude = locationInfo.location.coordinate.longitude
-            location.placemark = locationInfo.placemark
-            location.date = locationInfo.date
-        }
+//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//
+//        if let container = appDelegate?.persistentContainer {
+//            let location = Location(context: container.viewContext)
+//            location.category = locationInfo.category.rawValue
+//            location.localDescription = locationInfo.description
+//            location.latitude = locationInfo.location.coordinate.latitude
+//            location.longitude = locationInfo.location.coordinate.longitude
+//            location.placemark = locationInfo.placemark
+//            location.date = locationInfo.date
+//        }
         
-        appDelegate?.saveContext()
-        print("Save context: \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])")
-
+//        appDelegate?.saveContext()
+//        print("Save context: \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])")
+        
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func cancel(_ sender: Any) {

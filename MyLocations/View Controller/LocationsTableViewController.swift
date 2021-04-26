@@ -10,7 +10,10 @@ import UIKit
 class LocationsTableViewController: UITableViewController {
 
     private let locationCellId = "LocationCell"
-    private let locations = Locations()
+    private var locations: Locations {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.locations
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +26,10 @@ class LocationsTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        locations.addLocation(with: LocationMeta(description: "None-A", category: .none))
-        locations.addLocation(with: LocationMeta(description: "None-B", category: .none))
-        locations.addLocation(with: LocationMeta(description: "Bar-A", category: .bar))
-        locations.addLocation(with: LocationMeta(description: "Bar-B", category: .bar))
-        locations.addLocation(with: LocationMeta(description: "Bar-C", category: .bar))
-        locations.addLocation(with: LocationMeta(description: "Club-A", category: .club))
-        locations.addLocation(with: LocationMeta(description: "Coffee-A", category: .coffee))
-        
         tableView.reloadData()
     }
-
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
