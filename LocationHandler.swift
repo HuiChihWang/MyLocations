@@ -11,12 +11,17 @@ import Contacts
 
 struct LocationMeta {
     let location: CLLocation
-    let address: String
+    let placemark: CLPlacemark?
     let date = Date()
     
-    var Description = ""
+    var description = ""
     var photoUrl: String?
     var category = Category.none
+        
+    var address: String {
+        placemark?.formattedAddress ?? "Unknown"
+    }
+        
 }
 
 
@@ -33,6 +38,8 @@ class LocationHandler: NSObject {
     
     var currentLocation: CLLocation?
     var address: String?
+    var placemark: CLPlacemark?
+    
     private var isAddressUpdated = false
     
     var status: LocationStatus = .initial
@@ -86,8 +93,9 @@ class LocationHandler: NSObject {
     
     private func transformLocationToAddress(with location: CLLocation) {
         isAddressUpdated = false
-        geoCoder.reverseGeocodeLocation(location) { [weak self] placeMarks, error in
-            self?.address = placeMarks?.last?.formattedAddress
+        geoCoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
+            self?.placemark = placemarks?.last
+            self?.address = self?.placemark?.formattedAddress
             self?.isAddressUpdated = true
         }
         

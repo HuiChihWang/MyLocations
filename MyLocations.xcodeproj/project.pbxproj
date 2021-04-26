@@ -45,6 +45,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C79EA822635ACAC00639099 /* LocationCoreData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LocationCoreData;
+			sourceTree = "<group>";
+		};
 		0C7CF7C8262D8C2F00D72CD9 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +71,7 @@
 		0C7CF7D3262D8C2F00D72CD9 /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
+				0C79EA822635ACAC00639099 /* LocationCoreData */,
 				0C79EA6B2633E6D600639099 /* CategoryPickerTableViewController.swift */,
 				0C79EA6826332E0A00639099 /* TagViewController.swift */,
 				0C7CF7EE262DD36100D72CD9 /* LocationHandler.swift */,

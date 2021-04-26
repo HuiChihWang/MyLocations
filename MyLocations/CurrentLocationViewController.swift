@@ -26,8 +26,8 @@ class CurrentLocationViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == tagViewSegueId, let controller = segue.destination as? TagViewController {
-            if let location = locationHelper.currentLocation, let address = locationHelper.address {
-                let locationInfo = LocationMeta(location: location, address: address)
+            if let location = locationHelper.currentLocation {
+                let locationInfo = LocationMeta(location: location, placemark: locationHelper.placemark)
                 controller.locationInfo = locationInfo
             }
         }

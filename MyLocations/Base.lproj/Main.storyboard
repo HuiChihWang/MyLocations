@@ -325,6 +325,7 @@
                         <outlet property="addressLabel" destination="Zvu-hl-Vsi" id="TCK-jF-QVZ"/>
                         <outlet property="categoryLabel" destination="LCe-KP-GcF" id="cYt-E7-Sd9"/>
                         <outlet property="dateLabel" destination="bxV-p3-bO3" id="LD0-j6-BYh"/>
+                        <outlet property="descriptionText" destination="0d6-LZ-zVw" id="mA3-Xt-A4n"/>
                         <outlet property="latitudeLabel" destination="a6q-K5-dM3" id="NgK-rF-fTu"/>
                         <outlet property="longitudeLabel" destination="fTX-xk-6Tz" id="bzy-l2-JeW"/>
                     </connections>
