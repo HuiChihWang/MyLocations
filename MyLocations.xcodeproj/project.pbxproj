@@ -21,6 +21,7 @@
 		0C7CF7E1262D8C3600D72CD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C7CF7E0262D8C3600D72CD9 /* Assets.xcassets */; };
 		0C7CF7E4262D8C3600D72CD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C7CF7E2262D8C3600D72CD9 /* LaunchScreen.storyboard */; };
 		0C7CF7EF262DD36100D72CD9 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7CF7EE262DD36100D72CD9 /* LocationHandler.swift */; };
+		0C9E836D263871790016750B /* LocationMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E836C263871790016750B /* LocationMeta.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		0C7CF7E3262D8C3600D72CD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C7CF7E5262D8C3600D72CD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C7CF7EE262DD36100D72CD9 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationHandler.swift; path = MyLocations/Model/LocationHandler.swift; sourceTree = SOURCE_ROOT; };
+		0C9E836C263871790016750B /* LocationMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMeta.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				0C79EA882636B67800639099 /* Locations.swift */,
+				0C9E836C263871790016750B /* LocationMeta.swift */,
 				0C7CF7EE262DD36100D72CD9 /* LocationHandler.swift */,
 			);
 			path = Model;
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C79EA892636B67800639099 /* Locations.swift in Sources */,
+				0C9E836D263871790016750B /* LocationMeta.swift in Sources */,
 				0C79EA852636B41400639099 /* LocationsTableViewController.swift in Sources */,
 				0C79EA972636F5FE00639099 /* Location+CoreDataProperties.swift in Sources */,
 				0C7CF7EF262DD36100D72CD9 /* LocationHandler.swift in Sources */,

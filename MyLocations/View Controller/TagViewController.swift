@@ -20,7 +20,7 @@ class TagViewController: UITableViewController {
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var photoHeight: NSLayoutConstraint!
     
-    var image: UIImage? {
+    private var image: UIImage? {
         didSet {
             photoView.image = image
             photoHeight.constant = image == nil ? 24 : 100
@@ -45,6 +45,9 @@ class TagViewController: UITableViewController {
     }()
     
     var locationInfo = LocationMeta(location: CLLocation(), placemark: nil)
+    private var isEditLocation: Bool {
+        locationInfo.isInCoreData
+    }
     
     private var locations: Locations {
         let appDelegate =  UIApplication.shared.delegate as! AppDelegate
@@ -55,13 +58,6 @@ class TagViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
         configureInfo(with: locationInfo)
     }
     
@@ -84,7 +80,7 @@ class TagViewController: UITableViewController {
         locationInfo.description = descriptionText.text
         locationInfo.imageData = image?.jpegData(compressionQuality: 0.7)
         
-        if locationInfo.isInCoreData {
+        if isEditLocation {
             locations.updateLocation(with: locationInfo)
         }
         else {
@@ -119,7 +115,6 @@ class TagViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath == IndexPath(row: 0, section: 2) {
             showPhotoMenu()
-            //            present(imagePickerController, animated: true, completion: nil)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

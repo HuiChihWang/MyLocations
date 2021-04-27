@@ -10,62 +10,22 @@ import CoreLocation
 import CoreData
 import UIKit
 
-struct LocationMeta: Identifiable {
-    var location: CLLocation = CLLocation()
-    var placemark: CLPlacemark?
-    var date = Date()
-    
-    var description = ""
-  
-    var category = Category.none
-        
-    var locationCore: Location?
-    var photoURL: URL? {
-        let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let filename = "Photo-\(id).jpg"
-        return documentPath.appendingPathComponent(filename)
-    }
-    
-    var imageData: Data?
-    
-    
-    var address: String {
-        placemark?.formattedAddress ?? "Unknown"
-    }
-    
-    var isInCoreData: Bool {
-        return locationCore != nil
-    }
-    
-    var id = UUID()
-
-    init(location: CLLocation, placemark: CLPlacemark?) {
-        self.location = location
-        self.placemark = placemark
-    }
-    
-    init(description: String, category: Category) {
-        self.description = description
-        self.category = category
-    }
-    
-    func toLocation(context: NSManagedObjectContext) -> Location {
-        let location = Location(context: context)
-        location.category = category.rawValue
-        location.latitude = self.location.coordinate.latitude
-        location.longitude = self.location.coordinate.longitude
-        location.localDescription = description
-        location.placemark = placemark
-        location.date = date
-        location.photoURL = photoURL
-        location.id = id
-        
-        return location
-    }
-}
-
-
 class Locations {
+    
+    private var container: NSPersistentContainer {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer
+    }
+    
+    private var mapTypeLocations = [Category: [LocationMeta]]()
+    
+    private var categories: [Category] {
+        Array(mapTypeLocations.keys)
+    }
+        
+    var numberOfType: Int {
+        categories.count
+    }
     
     init() {
         loadLocations()
@@ -90,20 +50,6 @@ class Locations {
         }
     }
     
-    private var container: NSPersistentContainer {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer
-    }
-    
-    private var mapTypeLocations = [Category: [LocationMeta]]()
-    
-    private var categories: [Category] {
-        Array(mapTypeLocations.keys)
-    }
-        
-    var numberOfType: Int {
-        categories.count
-    }
     
     func getCategory(by index: Int) -> Category? {
         (0..<numberOfType).contains(index) ? categories[index] : nil
@@ -119,31 +65,51 @@ class Locations {
             mapTypeLocations[location.category] = [LocationMeta]()
         }
         
-        if let locations = mapTypeLocations[location.category], !locations.contains(where: {$0.id == location.id}) {
-            mapTypeLocations[location.category]?.append(location)
-            let locationCore = location.toLocation(context: container.viewContext)
-            
-            if let data = location.imageData {
-                locationCore.saveImage(with: data)
-            }
+        mapTypeLocations[location.category]?.append(location)
+        let locationCore = location.toLocation(context: container.viewContext)
+        location.locationCore = locationCore
+        
+        if let data = location.imageData {
+            location.locationCore?.saveImage(with: data)
+        }
+    }
+    
+    private func checkCategoryChanged(with location: LocationMeta) -> Bool {
+        if let locations = mapTypeLocations[location.category], locations.contains(where: {$0.id == location.id}) {
+            return false
         }
         
-        
+        return true
     }
     
     public func updateLocation(with locationUpdate: LocationMeta) {
-        var locationOld: LocationMeta?
         
-        mapTypeLocations.forEach { category, locations in
-            if let index = locations.firstIndex(where: {$0.id == locationUpdate.id}) {
-                locationOld = locations[index]
+        if checkCategoryChanged(with: locationUpdate) {
+            
+            // move location update to correct key position
+            mapTypeLocations.forEach { category, locations in
+                if let index = locations.firstIndex(where: {$0.id == locationUpdate.id}) {
+                    mapTypeLocations[category]?.remove(at: index)
+                    
+                    if let locations = mapTypeLocations[category], locations.isEmpty {
+                        mapTypeLocations[category] = nil
+                    }
+                }
             }
+
+            
+            if mapTypeLocations[locationUpdate.category] == nil {
+                mapTypeLocations[locationUpdate.category] = [LocationMeta]()
+            }
+            
+            
+            mapTypeLocations[locationUpdate.category]?.append(locationUpdate)
         }
         
-        if let location = locationOld {
-            removeLocation(with: location)
-            addLocation(with: locationUpdate)
+        if let data = locationUpdate.imageData {
+            locationUpdate.locationCore?.saveImage(with: data)
         }
+
     }
         
     public func removeLocation(with location: LocationMeta) {
