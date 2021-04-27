@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 
 class TagViewController: UITableViewController {
-
+    
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
@@ -25,13 +25,13 @@ class TagViewController: UITableViewController {
     }()
     
     private lazy var imagePickerController: UIImagePickerController = {
-       let picker = UIImagePickerController()
+        let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.sourceType = .photoLibrary
         picker.delegate = self
         return picker
     }()
-        
+    
     var locationInfo = LocationMeta(location: CLLocation(), placemark: nil)
     
     private var locations: Locations {
@@ -43,10 +43,10 @@ class TagViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
@@ -75,20 +75,20 @@ class TagViewController: UITableViewController {
             locations.addLocation(with: locationInfo)
         }
         
-//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-//
-//        if let container = appDelegate?.persistentContainer {
-//            let location = Location(context: container.viewContext)
-//            location.category = locationInfo.category.rawValue
-//            location.localDescription = locationInfo.description
-//            location.latitude = locationInfo.location.coordinate.latitude
-//            location.longitude = locationInfo.location.coordinate.longitude
-//            location.placemark = locationInfo.placemark
-//            location.date = locationInfo.date
-//        }
+        //        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        //
+        //        if let container = appDelegate?.persistentContainer {
+        //            let location = Location(context: container.viewContext)
+        //            location.category = locationInfo.category.rawValue
+        //            location.localDescription = locationInfo.description
+        //            location.latitude = locationInfo.location.coordinate.latitude
+        //            location.longitude = locationInfo.location.coordinate.longitude
+        //            location.placemark = locationInfo.placemark
+        //            location.date = locationInfo.date
+        //        }
         
-//        appDelegate?.saveContext()
-//        print("Save context: \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])")
+        //        appDelegate?.saveContext()
+        //        print("Save context: \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])")
         
         navigationController?.popViewController(animated: true)
     }
@@ -117,9 +117,13 @@ class TagViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath == IndexPath(row: 0, section: 2) {
-            present(imagePickerController, animated: true, completion: nil)
+            showPhotoMenu()
+            //            present(imagePickerController, animated: true, completion: nil)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+
 }
 
 extension TagViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -129,5 +133,52 @@ extension TagViewController: UIImagePickerControllerDelegate, UINavigationContro
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func showPhotoMenu() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let photoAction = UIAlertAction(title: "Choose From Library", style: .default) { _ in
+            self.pickPhotoFromLibrary()
+            print("choose Photo")
+        }
+        
+        alert.addAction(photoAction)
+        
+        let cameraAction = UIAlertAction(title: "Take Photo", style: .default) { _ in
+            self.checkCameraAvailable()
+            self.takePhotoFromCamera()
+            print("Take photo")
+        }
+        alert.addAction(cameraAction)
+        
+        let cancleAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancleAction)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func checkCameraAvailable() -> Bool {
+        if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let alert = UIAlertController(title: nil, message: "Camera service is not available on this device", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
+        
+        return UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+    
+    func takePhotoFromCamera() {
+        if checkCameraAvailable() {
+            imagePickerController.sourceType = .camera
+            present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    func pickPhotoFromLibrary() {
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
     }
 }
