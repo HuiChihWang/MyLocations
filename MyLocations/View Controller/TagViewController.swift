@@ -17,6 +17,18 @@ class TagViewController: UITableViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var descriptionText: UITextView!
     
+    @IBOutlet weak var photoView: UIImageView!
+    @IBOutlet weak var photoHeight: NSLayoutConstraint!
+    
+    var image: UIImage? {
+        didSet {
+            photoView.image = image
+            photoHeight.constant = image == nil ? 24 : 100
+            tableView.reloadData()
+        }
+    }
+    
+    
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -132,10 +144,15 @@ extension TagViewController: UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[.editedImage] as? UIImage {
+            self.image = image
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     
-    func showPhotoMenu() {
+    private func showPhotoMenu() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let photoAction = UIAlertAction(title: "Choose From Library", style: .default) { _ in
@@ -146,20 +163,28 @@ extension TagViewController: UIImagePickerControllerDelegate, UINavigationContro
         alert.addAction(photoAction)
         
         let cameraAction = UIAlertAction(title: "Take Photo", style: .default) { _ in
-            self.checkCameraAvailable()
             self.takePhotoFromCamera()
             print("Take photo")
         }
         alert.addAction(cameraAction)
         
+        
+        if image != nil {
+            let actionRemove = UIAlertAction(title: "Remove Photo", style: .destructive) { _ in
+                self.image = nil
+            }
+            alert.addAction(actionRemove)
+        }
+        
         let cancleAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancleAction)
         
-        present(alert, animated: true, completion: nil)
+
         
+        present(alert, animated: true, completion: nil)
     }
     
-    func checkCameraAvailable() -> Bool {
+    private func checkCameraAvailable() -> Bool {
         if !UIImagePickerController.isSourceTypeAvailable(.camera) {
             let alert = UIAlertController(title: nil, message: "Camera service is not available on this device", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -170,14 +195,14 @@ extension TagViewController: UIImagePickerControllerDelegate, UINavigationContro
         return UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
-    func takePhotoFromCamera() {
+    private func takePhotoFromCamera() {
         if checkCameraAvailable() {
             imagePickerController.sourceType = .camera
             present(imagePickerController, animated: true, completion: nil)
         }
     }
     
-    func pickPhotoFromLibrary() {
+    private func pickPhotoFromLibrary() {
         imagePickerController.sourceType = .photoLibrary
         present(imagePickerController, animated: true, completion: nil)
     }
