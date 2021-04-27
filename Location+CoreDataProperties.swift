@@ -23,6 +23,7 @@ extension Location {
     @NSManaged public var longitude: Double
     @NSManaged public var placemark: CLPlacemark?
     @NSManaged public var photoURL: URL?
+    @NSManaged public var id: UUID?
 
 }
 

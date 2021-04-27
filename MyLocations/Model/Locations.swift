@@ -20,7 +20,13 @@ struct LocationMeta: Identifiable {
     var category = Category.none
         
     var locationCore: Location?
-    var photoURL: URL?
+    var photoURL: URL? {
+        let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let filename = "Photo-\(id).jpg"
+        return documentPath.appendingPathComponent(filename)
+    }
+    
+    var imageData: Data?
     
     
     var address: String {
@@ -31,10 +37,7 @@ struct LocationMeta: Identifiable {
         return locationCore != nil
     }
     
-    var id: String {
-        description
-    }
-    
+    var id = UUID()
 
     init(location: CLLocation, placemark: CLPlacemark?) {
         self.location = location
@@ -54,6 +57,8 @@ struct LocationMeta: Identifiable {
         location.localDescription = description
         location.placemark = placemark
         location.date = date
+        location.photoURL = photoURL
+        location.id = id
         
         return location
     }
@@ -116,15 +121,21 @@ class Locations {
         
         if let locations = mapTypeLocations[location.category], !locations.contains(where: {$0.id == location.id}) {
             mapTypeLocations[location.category]?.append(location)
-            location.toLocation(context: container.viewContext)
+            let locationCore = location.toLocation(context: container.viewContext)
+            
+            if let data = location.imageData {
+                locationCore.saveImage(with: data)
+            }
         }
+        
+        
     }
     
     public func updateLocation(with locationUpdate: LocationMeta) {
         var locationOld: LocationMeta?
         
         mapTypeLocations.forEach { category, locations in
-            if let index = locations.firstIndex(where: {$0.locationCore === locationUpdate.locationCore}) {
+            if let index = locations.firstIndex(where: {$0.id == locationUpdate.id}) {
                 locationOld = locations[index]
             }
         }
@@ -139,6 +150,7 @@ class Locations {
         if var locations = mapTypeLocations[location.category], let index = locations.firstIndex(where: {$0.id == location.id}){
             
             if let locationCore = locations[index].locationCore {
+                locationCore.deleteImage()
                 container.viewContext.delete(locationCore)
             }
 

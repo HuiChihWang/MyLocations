@@ -79,11 +79,10 @@ class TagViewController: UITableViewController {
         }
     }
     
-    // TODO: Test here
     @IBAction func done(_ sender: Any) {
         locationInfo.category = Category(rawValue: categoryLabel.text!) ?? .none
         locationInfo.description = descriptionText.text
-        createJPEGPhoto()
+        locationInfo.imageData = image?.jpegData(compressionQuality: 0.7)
         
         if locationInfo.isInCoreData {
             locations.updateLocation(with: locationInfo)
@@ -195,23 +194,5 @@ extension TagViewController: UIImagePickerControllerDelegate, UINavigationContro
     private func pickPhotoFromLibrary() {
         imagePickerController.sourceType = .photoLibrary
         present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    private func createJPEGPhoto() {
-        let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let filename = "Photo-\(locationInfo.id).jpg"
-        let photoURL = documentPath.appendingPathComponent(filename)
-        
-        if let image = self.image {
-            if let data = image.jpegData(compressionQuality: 0.7) {
-                do {
-                    try data.write(to: photoURL)
-                    locationInfo.photoURL = photoURL
-                    print("save image to URL: \(photoURL)")
-                } catch {
-                    print("Error in saving image: \(error)")
-                }
-            }
-        }
     }
 }

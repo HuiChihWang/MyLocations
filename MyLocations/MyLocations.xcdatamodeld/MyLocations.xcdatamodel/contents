@@ -3,6 +3,7 @@
     <entity name="Location" representedClassName="Location" syncable="YES">
         <attribute name="category" attributeType="String"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="localDescription" attributeType="String"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -10,6 +11,6 @@
         <attribute name="placemark" optional="YES" attributeType="Transformable"/>
     </entity>
     <elements>
-        <element name="Location" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="Location" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>
