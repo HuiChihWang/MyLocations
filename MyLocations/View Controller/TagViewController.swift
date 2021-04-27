@@ -73,12 +73,17 @@ class TagViewController: UITableViewController {
         dateLabel.text = dateFormatter.string(from: locationInfo.date)
         categoryLabel.text = locationInfo.category.rawValue
         descriptionText.text = locationInfo.description
+        
+        if let url = locationInfo.photoURL {
+            image = UIImage(contentsOfFile: url.path)
+        }
     }
     
     // TODO: Test here
     @IBAction func done(_ sender: Any) {
         locationInfo.category = Category(rawValue: categoryLabel.text!) ?? .none
         locationInfo.description = descriptionText.text
+        createJPEGPhoto()
         
         if locationInfo.isInCoreData {
             locations.updateLocation(with: locationInfo)
@@ -86,21 +91,6 @@ class TagViewController: UITableViewController {
         else {
             locations.addLocation(with: locationInfo)
         }
-        
-        //        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        //
-        //        if let container = appDelegate?.persistentContainer {
-        //            let location = Location(context: container.viewContext)
-        //            location.category = locationInfo.category.rawValue
-        //            location.localDescription = locationInfo.description
-        //            location.latitude = locationInfo.location.coordinate.latitude
-        //            location.longitude = locationInfo.location.coordinate.longitude
-        //            location.placemark = locationInfo.placemark
-        //            location.date = locationInfo.date
-        //        }
-        
-        //        appDelegate?.saveContext()
-        //        print("Save context: \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0])")
         
         navigationController?.popViewController(animated: true)
     }
@@ -205,5 +195,23 @@ extension TagViewController: UIImagePickerControllerDelegate, UINavigationContro
     private func pickPhotoFromLibrary() {
         imagePickerController.sourceType = .photoLibrary
         present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    private func createJPEGPhoto() {
+        let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let filename = "Photo-\(locationInfo.id).jpg"
+        let photoURL = documentPath.appendingPathComponent(filename)
+        
+        if let image = self.image {
+            if let data = image.jpegData(compressionQuality: 0.7) {
+                do {
+                    try data.write(to: photoURL)
+                    locationInfo.photoURL = photoURL
+                    print("save image to URL: \(photoURL)")
+                } catch {
+                    print("Error in saving image: \(error)")
+                }
+            }
+        }
     }
 }

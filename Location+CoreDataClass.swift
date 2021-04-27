@@ -22,6 +22,7 @@ public class Location: NSManagedObject {
         locationMeta.category = Category(rawValue: self.category ?? "") ?? .none
         locationMeta.date = self.date ?? Date()
         locationMeta.locationCore = self
+        locationMeta.photoURL = photoURL
         
         return locationMeta
     }

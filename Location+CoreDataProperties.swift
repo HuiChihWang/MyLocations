@@ -2,13 +2,13 @@
 //  Location+CoreDataProperties.swift
 //  MyLocations
 //
-//  Created by Hui Chih Wang on 2021/4/26.
+//  Created by Hui Chih Wang on 2021/4/27.
 //
 //
 
 import Foundation
 import CoreData
-import CoreLocation
+
 
 extension Location {
 
@@ -22,6 +22,7 @@ extension Location {
     @NSManaged public var localDescription: String?
     @NSManaged public var longitude: Double
     @NSManaged public var placemark: CLPlacemark?
+    @NSManaged public var photoURL: URL?
 
 }
 

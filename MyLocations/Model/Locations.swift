@@ -16,9 +16,13 @@ struct LocationMeta: Identifiable {
     var date = Date()
     
     var description = ""
-    var photoUrl: String? // not handled yet
+  
     var category = Category.none
         
+    var locationCore: Location?
+    var photoURL: URL?
+    
+    
     var address: String {
         placemark?.formattedAddress ?? "Unknown"
     }
@@ -31,8 +35,7 @@ struct LocationMeta: Identifiable {
         description
     }
     
-    var locationCore: Location?
-    
+
     init(location: CLLocation, placemark: CLPlacemark?) {
         self.location = location
         self.placemark = placemark
