@@ -23,6 +23,7 @@
 		0C7CF7EF262DD36100D72CD9 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7CF7EE262DD36100D72CD9 /* LocationHandler.swift */; };
 		0C9E836D263871790016750B /* LocationMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E836C263871790016750B /* LocationMeta.swift */; };
 		0C9E836F263941120016750B /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E836E263941120016750B /* LocationTableViewCell.swift */; };
+		0C9E83712639C07D0016750B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E83702639C07D0016750B /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +44,8 @@
 		0C7CF7E5262D8C3600D72CD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C7CF7EE262DD36100D72CD9 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationHandler.swift; path = MyLocations/Model/LocationHandler.swift; sourceTree = SOURCE_ROOT; };
 		0C9E836C263871790016750B /* LocationMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMeta.swift; sourceTree = "<group>"; };
-		0C9E836E263941120016750B /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		0C9E836E263941120016750B /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationTableViewCell.swift; path = "MyLocations/View Controller/LocationTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
+		0C9E83702639C07D0016750B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = MyLocations/MapViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,8 @@
 		0C79EA8B2636F51A00639099 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0C9E836E263941120016750B /* LocationTableViewCell.swift */,
+				0C9E83702639C07D0016750B /* MapViewController.swift */,
 				0C79EA842636B41400639099 /* LocationsTableViewController.swift */,
 				0C79EA6B2633E6D600639099 /* CategoryPickerTableViewController.swift */,
 				0C79EA6826332E0A00639099 /* TagViewController.swift */,
@@ -106,7 +110,6 @@
 		0C7CF7D3262D8C2F00D72CD9 /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
-				0C9E836E263941120016750B /* LocationTableViewCell.swift */,
 				0C79EA8C2636F54D00639099 /* Model */,
 				0C79EA8B2636F51A00639099 /* View Controller */,
 				0C79EA822635ACAC00639099 /* LocationCoreData */,
@@ -204,6 +207,7 @@
 				0C7CF7DF262D8C2F00D72CD9 /* MyLocations.xcdatamodeld in Sources */,
 				0C79EA962636F5FE00639099 /* Location+CoreDataClass.swift in Sources */,
 				0C7CF7D7262D8C2F00D72CD9 /* SceneDelegate.swift in Sources */,
+				0C9E83712639C07D0016750B /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

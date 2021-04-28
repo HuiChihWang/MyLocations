@@ -405,15 +405,29 @@
             </objects>
             <point key="canvasLocation" x="3659" y="94"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="yUP-je-Jqi">
             <objects>
-                <viewController id="v5o-op-I5j" sceneMemberID="viewController">
+                <viewController id="v5o-op-I5j" customClass="MapViewController" customModule="MyLocations" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jEg-kc-S2a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x2I-6T-keh">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <connections>
+                                    <outlet property="delegate" destination="v5o-op-I5j" id="oZY-vD-Wxg"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="fLz-DN-zl7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="x2I-6T-keh" firstAttribute="top" secondItem="fLz-DN-zl7" secondAttribute="top" id="JHi-dc-vOY"/>
+                            <constraint firstItem="x2I-6T-keh" firstAttribute="trailing" secondItem="fLz-DN-zl7" secondAttribute="trailing" id="YUv-44-xER"/>
+                            <constraint firstItem="x2I-6T-keh" firstAttribute="bottom" secondItem="fLz-DN-zl7" secondAttribute="bottom" id="b9S-M2-Myg"/>
+                            <constraint firstItem="x2I-6T-keh" firstAttribute="leading" secondItem="fLz-DN-zl7" secondAttribute="leading" id="d9A-ME-V7Y"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ZOb-bi-lAd"/>
                 </viewController>
