@@ -15,13 +15,30 @@ class LocationMeta: Identifiable {
     var date = Date()
     var id = UUID()
     
-    var description = ""
+    var description = "" {
+        didSet {
+            locationCore?.localDescription = description
+        }
+    }
   
-    var category = Category.none
+    var category = Category.none {
+        didSet {
+            locationCore?.category = category.rawValue
+        }
+    }
         
     var locationCore: Location?
     
-    var imageData: Data?
+    var imageData: Data? {
+        didSet {
+            if let data = imageData {
+                locationCore?.saveImage(with: data)
+            }
+            else {
+                locationCore?.deleteImage()
+            }
+        }
+    }
 
     
     var photoURL: URL? {
@@ -45,7 +62,7 @@ class LocationMeta: Identifiable {
         self.placemark = placemark
     }
         
-    func toLocation(context: NSManagedObjectContext) -> Location {
+    func toLocation(context: NSManagedObjectContext) {
         let location = Location(context: context)
         location.category = category.rawValue
         location.latitude = self.location.coordinate.latitude
@@ -56,6 +73,10 @@ class LocationMeta: Identifiable {
         location.photoURL = photoURL
         location.id = id
         
-        return location
+        locationCore = location
+        
+        if let data = imageData {
+            locationCore?.saveImage(with: data)
+        }
     }
 }

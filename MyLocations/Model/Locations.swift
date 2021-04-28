@@ -31,26 +31,6 @@ class Locations {
         loadLocations()
     }
     
-    private func loadLocations() {
-        let request = NSFetchRequest<Location>(entityName: "Location")
-        
-        do {
-            let locations = try container.viewContext.fetch(request)
-            parseLocatitonsToModel(with: locations)
-            
-        } catch {
-            fatalError("\(error)")
-        }
-    }
-    
-    private func parseLocatitonsToModel(with locactions: [Location]) {
-        locactions.forEach { location in
-            let locationMeta = location.toLocationMeta()
-            self.addLocation(with: locationMeta)
-        }
-    }
-    
-    
     func getCategory(by index: Int) -> Category? {
         (0..<numberOfType).contains(index) ? categories[index] : nil
     }
@@ -66,26 +46,12 @@ class Locations {
         }
         
         mapTypeLocations[location.category]?.append(location)
-        let locationCore = location.toLocation(context: container.viewContext)
-        location.locationCore = locationCore
-        
-        if let data = location.imageData {
-            location.locationCore?.saveImage(with: data)
-        }
+        location.toLocation(context: container.viewContext)
     }
     
-    private func checkCategoryChanged(with location: LocationMeta) -> Bool {
-        if let locations = mapTypeLocations[location.category], locations.contains(where: {$0.id == location.id}) {
-            return false
-        }
-        
-        return true
-    }
     
     public func updateLocation(with locationUpdate: LocationMeta) {
-        
         if checkCategoryChanged(with: locationUpdate) {
-            
             // move location update to correct key position
             mapTypeLocations.forEach { category, locations in
                 if let index = locations.firstIndex(where: {$0.id == locationUpdate.id}) {
@@ -102,14 +68,8 @@ class Locations {
                 mapTypeLocations[locationUpdate.category] = [LocationMeta]()
             }
             
-            
             mapTypeLocations[locationUpdate.category]?.append(locationUpdate)
         }
-        
-        if let data = locationUpdate.imageData {
-            locationUpdate.locationCore?.saveImage(with: data)
-        }
-
     }
         
     public func removeLocation(with location: LocationMeta) {
@@ -133,6 +93,38 @@ class Locations {
         return mapTypeLocations[category]?[index]
     }
 
+    private func checkCategoryChanged(with location: LocationMeta) -> Bool {
+        if let locations = mapTypeLocations[location.category], locations.contains(where: {$0.id == location.id}) {
+            return false
+        }
+        
+        return true
+    }
+
+    private func loadLocations() {
+        let request = NSFetchRequest<Location>(entityName: "Location")
+        
+        do {
+            let locations = try container.viewContext.fetch(request)
+            parseLocatitonsToModel(with: locations)
+            
+        } catch {
+            fatalError("\(error)")
+        }
+    }
+    
+    private func parseLocatitonsToModel(with locactions: [Location]) {
+        locactions.forEach { location in
+            let locationMeta = location.toLocationMeta()
+            
+            if mapTypeLocations[locationMeta.category] == nil {
+                mapTypeLocations[locationMeta.category] = [LocationMeta]()
+            }
+            
+            mapTypeLocations[locationMeta.category]?.append(locationMeta)
+        }
+    }
+    
     private func sortLocations() {
         
     }

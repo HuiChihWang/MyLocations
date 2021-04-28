@@ -17,20 +17,18 @@ public class Location: NSManagedObject {
     func toLocationMeta() -> LocationMeta {
         let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         
-        var locationMeta = LocationMeta(location: location, placemark: self.placemark)
+        let locationMeta = LocationMeta(location: location, placemark: self.placemark)
         
         locationMeta.description = self.localDescription ?? ""
         locationMeta.category = Category(rawValue: self.category ?? "") ?? .none
         
         locationMeta.locationCore = self
         
-        if let date = date {
-            locationMeta.date = date
-        }
+        locationMeta.date = date ?? Date()
         
-        if let id = id {
-            locationMeta.id = id
-        }
+        locationMeta.id = id ?? UUID()
+        
+        locationMeta.locationCore = self
         
         return locationMeta
     }
