@@ -16,13 +16,13 @@ public class Location: NSManagedObject {
     
     func getImageURL() -> URL? {
         let documentDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        return documentDir.appendingPathComponent("Photo-\(id ?? UUID()).jpg")
+        return documentDir.appendingPathComponent("Photo-\(id).jpg")
     }
     
     func toLocationMeta() -> LocationMeta {
         let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         
-        let locationMeta = LocationMeta(location: location, placemark: self.placemark)
+        let locationMeta = LocationMeta(location: location, placemark: self.placemark as? CLPlacemark)
         
         locationMeta.description = self.localDescription ?? ""
         locationMeta.category = Category(rawValue: self.category ?? "") ?? .none
@@ -31,8 +31,7 @@ public class Location: NSManagedObject {
         
         locationMeta.date = date ?? Date()
         
-        locationMeta.id = id ?? UUID()
-        
+        locationMeta.id = id
         locationMeta.locationCore = self
         
         return locationMeta
