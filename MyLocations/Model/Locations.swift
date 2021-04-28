@@ -29,6 +29,18 @@ class Locations {
         categories.count
     }
     
+    var allLocations: [LocationMeta] {
+        var arrLocations = [LocationMeta]()
+        
+        categories.forEach { category in
+            mapTypeLocations[category]?.forEach { location in
+                arrLocations.append(location)
+            }
+        }
+        
+        return arrLocations
+    }
+    
     init() {
         loadLocations()
     }

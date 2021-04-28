@@ -24,7 +24,7 @@ public class Location: NSManagedObject {
         
         let locationMeta = LocationMeta(location: location, placemark: self.placemark as? CLPlacemark)
         
-        locationMeta.description = self.localDescription ?? ""
+        locationMeta.localDescription = self.localDescription ?? ""
         locationMeta.category = Category(rawValue: self.category ?? "") ?? .none
         
         locationMeta.locationCore = self

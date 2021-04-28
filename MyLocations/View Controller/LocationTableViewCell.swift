@@ -32,7 +32,7 @@ class LocationTableViewCell: UITableViewCell {
         thumbnailImage.layer.borderColor = UIColor(named: "Image Border Color")?.cgColor
 
 
-        descriptionLabel.text = location.description
+        descriptionLabel.text = location.localDescription
         addressLabel.text = location.address
         
         if let imagePath = location.photoURL {

@@ -8,16 +8,17 @@
 import Foundation
 import CoreLocation
 import CoreData
+import MapKit
 
-class LocationMeta: Identifiable {
+class LocationMeta: NSObject, Identifiable {
     let location: CLLocation
     let placemark: CLPlacemark?
     var date = Date()
     var id = UUID()
     
-    var description = "" {
+    var localDescription = "" {
         didSet {
-            locationCore?.localDescription = description
+            locationCore?.localDescription = localDescription
         }
     }
   
@@ -65,7 +66,7 @@ class LocationMeta: Identifiable {
         location.category = category.rawValue
         location.latitude = self.location.coordinate.latitude
         location.longitude = self.location.coordinate.longitude
-        location.localDescription = description
+        location.localDescription = localDescription
         location.placemark = placemark
         location.date = date
         location.id = id
@@ -75,5 +76,19 @@ class LocationMeta: Identifiable {
         if let data = imageData {
             locationCore?.saveImage(with: data)
         }
+    }
+}
+
+extension LocationMeta: MKAnnotation {
+    var coordinate: CLLocationCoordinate2D {
+        location.coordinate
+    }
+    
+    var title: String? {
+        localDescription.isEmpty ? "No Description" : localDescription
+    }
+    
+    var subtitle: String? {
+        category.rawValue
     }
 }

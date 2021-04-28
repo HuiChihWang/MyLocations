@@ -20,6 +20,8 @@ class TagViewController: UITableViewController {
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var photoHeight: NSLayoutConstraint!
     
+    var locationInfo = LocationMeta(location: CLLocation(), placemark: nil)
+    
     private var image: UIImage? {
         didSet {
             photoView.image = image
@@ -44,7 +46,7 @@ class TagViewController: UITableViewController {
         return picker
     }()
     
-    var locationInfo = LocationMeta(location: CLLocation(), placemark: nil)
+    
     private var isEditLocation: Bool {
         locationInfo.isInCoreData
     }
@@ -68,7 +70,7 @@ class TagViewController: UITableViewController {
         addressLabel.text = locationInfo.address
         dateLabel.text = dateFormatter.string(from: locationInfo.date)
         categoryLabel.text = locationInfo.category.rawValue
-        descriptionText.text = locationInfo.description
+        descriptionText.text = locationInfo.localDescription
         
         if let url = locationInfo.photoURL {
             image = UIImage(contentsOfFile: url.path)
@@ -77,7 +79,7 @@ class TagViewController: UITableViewController {
     
     @IBAction func done(_ sender: Any) {
         locationInfo.category = Category(rawValue: categoryLabel.text!) ?? .none
-        locationInfo.description = descriptionText.text
+        locationInfo.localDescription = descriptionText.text
         locationInfo.imageData = image?.jpegData(compressionQuality: 0.7)
         
         if isEditLocation {
