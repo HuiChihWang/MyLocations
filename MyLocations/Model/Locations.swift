@@ -20,7 +20,9 @@ class Locations {
     private var mapTypeLocations = [Category: [LocationMeta]]()
     
     private var categories: [Category] {
-        Array(mapTypeLocations.keys)
+        Array(mapTypeLocations.keys).sorted {
+            $0.rawValue.localizedStandardCompare($1.rawValue) == .orderedAscending
+        }
     }
         
     var numberOfType: Int {
@@ -46,6 +48,7 @@ class Locations {
         }
         
         mapTypeLocations[location.category]?.append(location)
+        sortLocations(in: location.category)
         location.toLocation(context: container.viewContext)
     }
     
@@ -62,13 +65,13 @@ class Locations {
                     }
                 }
             }
-
             
             if mapTypeLocations[locationUpdate.category] == nil {
                 mapTypeLocations[locationUpdate.category] = [LocationMeta]()
             }
             
             mapTypeLocations[locationUpdate.category]?.append(locationUpdate)
+            sortLocations(in: locationUpdate.category)
         }
     }
         
@@ -123,9 +126,15 @@ class Locations {
             
             mapTypeLocations[locationMeta.category]?.append(locationMeta)
         }
+        
+        categories.forEach { category in
+            sortLocations(in: category)
+        }
     }
     
-    private func sortLocations() {
-        
+    private func sortLocations(in category: Category) {
+        mapTypeLocations[category]?.sort {
+            $0.date > $1.date
+        }
     }
 }
