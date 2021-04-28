@@ -42,9 +42,7 @@ class LocationMeta: Identifiable {
 
     
     var photoURL: URL? {
-        let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let filename = "Photo-\(id).jpg"
-        return documentPath.appendingPathComponent(filename)
+        return locationCore?.getImageURL()
     }
     
         
@@ -70,7 +68,6 @@ class LocationMeta: Identifiable {
         location.localDescription = description
         location.placemark = placemark
         location.date = date
-        location.photoURL = photoURL
         location.id = id
         
         locationCore = location

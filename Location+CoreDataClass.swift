@@ -14,6 +14,11 @@ import UIKit
 @objc(Location)
 public class Location: NSManagedObject {
     
+    func getImageURL() -> URL? {
+        let documentDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return documentDir.appendingPathComponent("Photo-\(id ?? UUID()).jpg")
+    }
+    
     func toLocationMeta() -> LocationMeta {
         let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         
@@ -34,7 +39,7 @@ public class Location: NSManagedObject {
     }
     
     func saveImage(with data: Data) {
-        if let url = photoURL {
+        if let url = getImageURL() {
             do {
                 try data.write(to: url)
                 print("save image to URL: \(url)")
@@ -45,7 +50,7 @@ public class Location: NSManagedObject {
     }
     
     func deleteImage() {
-        if let url = photoURL {
+        if let url = getImageURL() {
             do {
                 try FileManager.default.removeItem(at: url)
             } catch {
