@@ -458,8 +458,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="104.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fg0-RD-nVb">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultLocation" translatesAutoresizingMaskIntoConstraints="NO" id="Fg0-RD-nVb">
                                             <rect key="frame" x="20" y="12" width="80.5" height="80.5"/>
+                                            <color key="tintColor" name="AccentColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="80" id="J2q-x7-W2W"/>
                                                 <constraint firstAttribute="width" secondItem="Fg0-RD-nVb" secondAttribute="height" multiplier="1:1" id="mwj-zo-ilz"/>
@@ -535,10 +536,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="BCX-qZ-7bL"/>
+        <segue reference="EJL-Mp-3DT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>
+        <image name="DefaultLocation" width="512" height="512"/>
         <image name="ListIcon" width="25" height="25"/>
         <image name="SearchIcon" width="25" height="25"/>
         <namedColor name="AccentColor">

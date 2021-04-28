@@ -12,6 +12,8 @@ class LocationTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
+    private let defaultImage = UIImage(named: "DefaultLocation")?.withRenderingMode(.alwaysTemplate)
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -32,7 +34,7 @@ class LocationTableViewCell: UITableViewCell {
         addressLabel.text = location.address
         
         if let imagePath = location.photoURL {
-            thumbnailImage.image = UIImage(contentsOfFile: imagePath.path)
+            thumbnailImage.image = UIImage(contentsOfFile: imagePath.path) ?? defaultImage
         }
     }
 
