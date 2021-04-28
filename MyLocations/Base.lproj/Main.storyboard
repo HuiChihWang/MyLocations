@@ -23,13 +23,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSG-lh-xXC">
-                                <rect key="frame" x="142.5" y="743" width="129" height="30"/>
-                                <state key="normal" title="Get My Locationon"/>
-                                <connections>
-                                    <action selector="updateLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d2r-zQ-z1G"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="FKq-Nr-sjv" userLabel="Location Info">
                                 <rect key="frame" x="30" y="203.5" width="354" height="117.5"/>
                                 <subviews>
@@ -86,6 +79,13 @@
                                 <state key="normal" title="Tag Location"/>
                                 <connections>
                                     <segue destination="EBA-Z8-6CJ" kind="show" identifier="TagCurrentLocation" id="BCX-qZ-7bL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSG-lh-xXC">
+                                <rect key="frame" x="151" y="743" width="112" height="30"/>
+                                <state key="normal" title="Get My Location"/>
+                                <connections>
+                                    <action selector="updateLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d2r-zQ-z1G"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -536,7 +536,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EJL-Mp-3DT"/>
+        <segue reference="BCX-qZ-7bL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>
