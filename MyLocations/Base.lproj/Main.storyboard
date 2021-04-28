@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -451,21 +452,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" id="tmr-qW-06c" customClass="LocationTableViewCell" customModule="MyLocations" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.5" width="414" height="96.5"/>
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="104.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tmr-qW-06c" id="kvf-p8-q79">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="96.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="104.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fg0-RD-nVb">
-                                            <rect key="frame" x="20" y="8" width="80.5" height="80.5"/>
+                                            <rect key="frame" x="20" y="12" width="80.5" height="80.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="80" id="J2q-x7-W2W"/>
                                                 <constraint firstAttribute="width" secondItem="Fg0-RD-nVb" secondAttribute="height" multiplier="1:1" id="mwj-zo-ilz"/>
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Lv2-J5-NRe">
-                                            <rect key="frame" x="120.5" y="22.5" width="273.5" height="51.5"/>
+                                            <rect key="frame" x="120.5" y="26.5" width="273.5" height="51.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPW-ad-0v0">
                                                     <rect key="frame" x="0.0" y="0.0" width="273.5" height="24"/>
@@ -476,7 +477,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gD8-e8-riE">
                                                     <rect key="frame" x="0.0" y="31" width="273.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" systemColor="placeholderTextColor"/>
+                                                    <color key="textColor" name="Address Label Color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -484,8 +485,8 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Lv2-J5-NRe" firstAttribute="centerY" secondItem="kvf-p8-q79" secondAttribute="centerY" id="4rw-NR-3mS"/>
-                                        <constraint firstItem="Fg0-RD-nVb" firstAttribute="top" secondItem="kvf-p8-q79" secondAttribute="top" constant="8" id="5sy-mZ-6DN"/>
-                                        <constraint firstAttribute="bottom" secondItem="Fg0-RD-nVb" secondAttribute="bottom" constant="8" id="Co9-tK-wSK"/>
+                                        <constraint firstItem="Fg0-RD-nVb" firstAttribute="top" secondItem="kvf-p8-q79" secondAttribute="top" constant="12" id="5sy-mZ-6DN"/>
+                                        <constraint firstAttribute="bottom" secondItem="Fg0-RD-nVb" secondAttribute="bottom" constant="12" id="Co9-tK-wSK"/>
                                         <constraint firstItem="Lv2-J5-NRe" firstAttribute="leading" secondItem="Fg0-RD-nVb" secondAttribute="trailing" constant="20" id="HRL-bM-Gcc"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Lv2-J5-NRe" secondAttribute="trailing" id="UkN-ac-KtP"/>
                                         <constraint firstItem="Fg0-RD-nVb" firstAttribute="leading" secondItem="kvf-p8-q79" secondAttribute="leading" constant="20" id="c3P-iz-zHG"/>
@@ -539,11 +540,11 @@
     <resources>
         <image name="location.fill" catalog="system" width="128" height="121"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <namedColor name="Address Label Color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="placeholderTextColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

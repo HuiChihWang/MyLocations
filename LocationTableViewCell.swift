@@ -15,9 +15,6 @@ class LocationTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        thumbnailImage.layer.borderWidth = 1
-        thumbnailImage.layer.cornerRadius = 5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,6 +24,10 @@ class LocationTableViewCell: UITableViewCell {
     }
     
     func configure(with location: LocationMeta) {
+        thumbnailImage.layer.borderColor = UIColor(named: "Image Border Color")?.cgColor
+        thumbnailImage.layer.borderWidth = 1
+        thumbnailImage.layer.cornerRadius = 5
+
         descriptionLabel.text = location.description
         addressLabel.text = location.address
         
