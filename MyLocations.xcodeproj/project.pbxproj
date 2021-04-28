@@ -22,6 +22,7 @@
 		0C7CF7E4262D8C3600D72CD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C7CF7E2262D8C3600D72CD9 /* LaunchScreen.storyboard */; };
 		0C7CF7EF262DD36100D72CD9 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7CF7EE262DD36100D72CD9 /* LocationHandler.swift */; };
 		0C9E836D263871790016750B /* LocationMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E836C263871790016750B /* LocationMeta.swift */; };
+		0C9E836F263941120016750B /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E836E263941120016750B /* LocationTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		0C7CF7E5262D8C3600D72CD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C7CF7EE262DD36100D72CD9 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationHandler.swift; path = MyLocations/Model/LocationHandler.swift; sourceTree = SOURCE_ROOT; };
 		0C9E836C263871790016750B /* LocationMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMeta.swift; sourceTree = "<group>"; };
+		0C9E836E263941120016750B /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		0C7CF7D3262D8C2F00D72CD9 /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
+				0C9E836E263941120016750B /* LocationTableViewCell.swift */,
 				0C79EA8C2636F54D00639099 /* Model */,
 				0C79EA8B2636F51A00639099 /* View Controller */,
 				0C79EA822635ACAC00639099 /* LocationCoreData */,
@@ -193,6 +196,7 @@
 				0C79EA852636B41400639099 /* LocationsTableViewController.swift in Sources */,
 				0C79EA972636F5FE00639099 /* Location+CoreDataProperties.swift in Sources */,
 				0C7CF7EF262DD36100D72CD9 /* LocationHandler.swift in Sources */,
+				0C9E836F263941120016750B /* LocationTableViewCell.swift in Sources */,
 				0C7CF7D9262D8C2F00D72CD9 /* CurrentLocationViewController.swift in Sources */,
 				0C7CF7D5262D8C2F00D72CD9 /* AppDelegate.swift in Sources */,
 				0C79EA6926332E0A00639099 /* TagViewController.swift in Sources */,

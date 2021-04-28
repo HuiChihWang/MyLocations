@@ -69,18 +69,13 @@ class LocationsTableViewController: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: locationCellId, for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: locationCellId, for: indexPath) as?  LocationTableViewCell
         
         if let category = locations.getCategory(by: indexPath.section), let location = locations.getLocation(in: category, with: indexPath.row) {
-            cell.textLabel?.text = location.description
-            cell.detailTextLabel?.text = location.address
-            
-            let image = UIImage(contentsOfFile: location.photoURL?.path ?? "")
-            cell.imageView?.image = image
+            cell?.configure(with: location)
         }
         
-        return cell
+        return cell ?? UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
