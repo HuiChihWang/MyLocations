@@ -443,6 +443,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="x2I-6T-keh" id="EMh-ad-Wtm"/>
+                        <segue destination="EBA-Z8-6CJ" kind="show" identifier="ShowLocationFromMap" id="MBW-H2-ZeQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="06D-oM-GmX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -600,7 +601,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EJL-Mp-3DT"/>
+        <segue reference="MBW-H2-ZeQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>

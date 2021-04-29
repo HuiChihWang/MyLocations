@@ -9,12 +9,13 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
-
+    
     @IBOutlet weak var mapView: MKMapView!
     
     private let minDisplayDegree: CLLocationDegrees = 0.005
     private let scaleFactor: Double = 1.3
     private let annotationId = "Location"
+    private let showLocationInfoSegueId = "ShowLocationFromMap"
     
     private var locations: Locations? {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -53,22 +54,18 @@ class MapViewController: UIViewController {
         showLocations()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    
+     // MARK: - Navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showLocationInfoSegueId, let controller = segue.destination as? TagViewController {
+            controller.locationInfo = sender as! LocationMeta
+        }
+     }
+     
     @IBAction func showUsers() {
         mapView.setRegion(displayRegionCenterAtUser, animated: true)
     }
     
-    // TODO: show rectangle consisting by locations on Map
     @IBAction func showLocations() {
         let region = getDisplayRegion(with: annotationsOnScreen)
         mapView.setRegion(region, animated: true)
@@ -132,7 +129,14 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         annotationView?.configure(with: annotation as! LocationMeta)
+        annotationView?.configureButtonAction(with: createButtonAction(with: annotation))
         
         return annotationView
+    }
+    
+    private func createButtonAction(with location: MKAnnotation) -> UIAction {
+        UIAction { _ in
+            self.performSegue(withIdentifier: self.showLocationInfoSegueId, sender: location)
+        }
     }
 }

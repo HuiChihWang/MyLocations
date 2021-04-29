@@ -9,15 +9,7 @@ import UIKit
 import MapKit
 
 class MKPinImageAnnotationView: MKPinAnnotationView {
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-    
+
     private static let defaultImage = UIImage(named: "DefaultLocation")?.withRenderingMode(.alwaysTemplate)
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
@@ -36,17 +28,17 @@ class MKPinImageAnnotationView: MKPinAnnotationView {
         canShowCallout = true
         isEnabled = true
 
-        
-        rightCalloutAccessoryView = configureButton()
+        rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         
         if let url = location.photoURL {
             leftCalloutAccessoryView = configureImage(with: url)
         }
     }
     
-    private func configureButton() -> UIButton {
-        let button = UIButton(type: .detailDisclosure)
-        return button
+    func configureButtonAction(with action: UIAction) {
+        if let button = rightCalloutAccessoryView as? UIButton {
+            button.addAction(action, for: .touchUpInside)
+        }
     }
     
     private func configureImage(with imageUrl: URL) -> UIImageView {
@@ -60,5 +52,4 @@ class MKPinImageAnnotationView: MKPinAnnotationView {
         
         return imageView
     }
-
 }
