@@ -12,30 +12,34 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    private let minDisplayDegree: CLLocationDegrees = 0.005
+    private let scaleFactor: Double = 1.3
+    private let annotationId = "Location"
+    
     private var locations: Locations? {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         return appDelegate?.locations
     }
     
-    private var locationsOnScreen = [LocationMeta]() {
+    private var annotationsOnScreen = [MKAnnotation]() {
         willSet {
-            mapView.removeAnnotations(locationsOnScreen)
+            mapView.removeAnnotations(annotationsOnScreen)
         }
         
         didSet {
-            mapView.addAnnotations(locationsOnScreen)
+            mapView.addAnnotations(annotationsOnScreen)
         }
     }
     
-    private var displayRegion: MKCoordinateRegion {
-        let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+    private var displayRegionCenterAtUser: MKCoordinateRegion {
+        let displayDiameter: CLLocationDistance = 500
+        let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, latitudinalMeters: displayDiameter, longitudinalMeters: displayDiameter)
+        
         return mapView.regionThatFits(region)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         reloadLocations()
     }
     
@@ -45,7 +49,8 @@ class MapViewController: UIViewController {
     }
     
     private func reloadLocations() {
-        locationsOnScreen = locations?.allLocations ?? [LocationMeta]()
+        annotationsOnScreen = locations?.allLocations ?? [MKAnnotation]()
+        showLocations()
     }
     
     /*
@@ -58,16 +63,76 @@ class MapViewController: UIViewController {
     }
     */
     
-    @IBAction func showUsers(_ sender: Any) {
-        mapView.setRegion(displayRegion, animated: true)
+    
+    @IBAction func showUsers() {
+        mapView.setRegion(displayRegionCenterAtUser, animated: true)
     }
     
+    // TODO: show rectangle consisting by locations on Map
+    @IBAction func showLocations() {
+        let region = getDisplayRegion(with: annotationsOnScreen)
+        mapView.setRegion(region, animated: true)
+    }
     
-    @IBAction func showLocations(_ sender: Any) {
+    private func getDisplayRegion(with annotations: [MKAnnotation]) -> MKCoordinateRegion {
+        if annotations.isEmpty {
+            return displayRegionCenterAtUser
+        }
+        
+        var xMin = Double.infinity
+        var yMin = Double.infinity
+        var xMax = -Double.infinity
+        var yMax = -Double.infinity
+        
+        annotations.forEach { annotation in
+            let coordinate = annotation.coordinate
+            
+            if coordinate.latitude < xMin {
+                xMin = coordinate.latitude
+            }
+            if coordinate.latitude > xMax {
+                xMax = coordinate.latitude
+            }
+            
+            if coordinate.longitude < yMin {
+                yMin = coordinate.longitude
+            }
+            if coordinate.longitude > yMax {
+                yMax = coordinate.longitude
+            }
+        }
+        
+        let center = CLLocationCoordinate2D(latitude: (xMin + xMax) / 2, longitude: (yMin + yMax) / 2)
+        let width = max((xMax - xMin) * scaleFactor, minDisplayDegree)
+        let height = max((yMax - yMin) * scaleFactor, minDisplayDegree)
+        
+        
+        let span = MKCoordinateSpan(latitudeDelta: width, longitudeDelta: height)
+        let region = MKCoordinateRegion(center: center, span: span)
+        
+        return mapView.regionThatFits(region)
     }
     
 }
 
 extension MapViewController: MKMapViewDelegate {
-    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is LocationMeta else {
+            return nil
+        }
+        
+        var annotationView: MKPinImageAnnotationView?
+        
+        if let reusableView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationId) {
+            reusableView.annotation = annotation
+            annotationView = reusableView as? MKPinImageAnnotationView
+        }
+        else {
+            annotationView = MKPinImageAnnotationView(annotation: annotation, reuseIdentifier: annotationId)
+        }
+        
+        annotationView?.configure(with: annotation as! LocationMeta)
+        
+        return annotationView
+    }
 }

@@ -24,6 +24,7 @@
 		0C9E836D263871790016750B /* LocationMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E836C263871790016750B /* LocationMeta.swift */; };
 		0C9E836F263941120016750B /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E836E263941120016750B /* LocationTableViewCell.swift */; };
 		0C9E83712639C07D0016750B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E83702639C07D0016750B /* MapViewController.swift */; };
+		0C9E8373263A91FA0016750B /* MKPinImageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E8372263A91F90016750B /* MKPinImageAnnotationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		0C9E836C263871790016750B /* LocationMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMeta.swift; sourceTree = "<group>"; };
 		0C9E836E263941120016750B /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationTableViewCell.swift; path = "MyLocations/View Controller/LocationTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		0C9E83702639C07D0016750B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = MyLocations/MapViewController.swift; sourceTree = SOURCE_ROOT; };
+		0C9E8372263A91F90016750B /* MKPinImageAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPinImageAnnotationView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		0C79EA8B2636F51A00639099 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0C9E8372263A91F90016750B /* MKPinImageAnnotationView.swift */,
 				0C9E836E263941120016750B /* LocationTableViewCell.swift */,
 				0C9E83702639C07D0016750B /* MapViewController.swift */,
 				0C79EA842636B41400639099 /* LocationsTableViewController.swift */,
@@ -202,6 +205,7 @@
 				0C9E836F263941120016750B /* LocationTableViewCell.swift in Sources */,
 				0C7CF7D9262D8C2F00D72CD9 /* CurrentLocationViewController.swift in Sources */,
 				0C7CF7D5262D8C2F00D72CD9 /* AppDelegate.swift in Sources */,
+				0C9E8373263A91FA0016750B /* MKPinImageAnnotationView.swift in Sources */,
 				0C79EA6926332E0A00639099 /* TagViewController.swift in Sources */,
 				0C79EA6C2633E6D600639099 /* CategoryPickerTableViewController.swift in Sources */,
 				0C7CF7DF262D8C2F00D72CD9 /* MyLocations.xcdatamodeld in Sources */,
