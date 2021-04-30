@@ -14,7 +14,8 @@ class CurrentLocationViewController: UIViewController {
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var tagButton: UIButton!
+    @IBOutlet weak var searchButton: UIImageView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     private let locationHelper = LocationHandler()
     private let tagViewSegueId = "TagCurrentLocation"
@@ -22,6 +23,7 @@ class CurrentLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,6 +36,7 @@ class CurrentLocationViewController: UIViewController {
     }
 
     @IBAction func updateLocation(_ sender: Any) {
+        print("tap on image")
         locationHelper.initializeSearch()
         updateView()
         
@@ -61,7 +64,6 @@ class CurrentLocationViewController: UIViewController {
     
     private func updateMessageStatus(with status: LocationStatus) {
         messageLabel.text = status.rawValue
-        tagButton.isHidden = status != .updated
         
         if (status == .disabled) {
             showDisabledAlert()
