@@ -60,6 +60,7 @@ class TagViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
         configureInfo(with: locationInfo)
     }
     

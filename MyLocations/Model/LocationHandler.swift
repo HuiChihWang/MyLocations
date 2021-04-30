@@ -30,6 +30,10 @@ class LocationHandler: NSObject {
     
     var status: LocationStatus = .initial
     
+    public func clearSearchResult() {
+        status = .initial
+    }
+    
     public func initializeSearch() {
         requestAuthorization()
         status = .searching
@@ -128,10 +132,10 @@ extension CLPlacemark {
 enum LocationStatus: String {
     case searching = "Searching..."
     case disabled = "Location Services Disabled"
-    case updated = "Current Location"
+    case updated = "Done!!"
     case unknown = "Error Getting Location"
     case networkIssue = "Please Turn on Mobile Network"
-    case initial = "Tap 'Get My Location' to Start"
+    case initial = "Tap To Get Location"
 }
 
 enum Category: String, CaseIterable {

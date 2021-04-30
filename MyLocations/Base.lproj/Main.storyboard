@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="rOr-Vb-0uS">
+                                <rect key="frame" x="188.5" y="597" width="37" height="37"/>
+                            </activityIndicatorView>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GetLocation" translatesAutoresizingMaskIntoConstraints="NO" id="ksz-3H-Crn">
                                 <rect key="frame" x="20" y="254" width="374" height="210.5"/>
                                 <gestureRecognizers/>
@@ -33,15 +36,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="rOr-Vb-0uS">
-                                <rect key="frame" x="171" y="88" width="73" height="82"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cp-DK-fZA" userLabel="Location Display">
-                                <rect key="frame" x="0.0" y="523" width="414" height="290"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cp-DK-fZA" userLabel="Location Display">
+                                <rect key="frame" x="0.0" y="504.5" width="414" height="308.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="ZNf-ZD-KXm" userLabel="Buttons">
-                                        <rect key="frame" x="58.5" y="190" width="297" height="60"/>
+                                        <rect key="frame" x="58.5" y="208.5" width="297" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oe3-fF-ULa">
                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="60"/>
@@ -53,6 +52,9 @@
                                                 <state key="normal" title="Cancle">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="cancle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SO6-cM-Dn6"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51v-lw-ebs">
                                                 <rect key="frame" x="167" y="0.0" width="130" height="60"/>
@@ -61,6 +63,9 @@
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="EBA-Z8-6CJ" kind="show" identifier="TagCurrentLocation" id="X2P-sK-VWi"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -140,10 +145,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6cp-DK-fZA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0b1-Ja-sYH"/>
+                            <constraint firstItem="nWp-tg-AO4" firstAttribute="centerX" secondItem="rOr-Vb-0uS" secondAttribute="centerX" id="3Tx-Eo-u7w"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ksz-3H-Crn" secondAttribute="trailing" constant="20" id="7cl-Ik-Pap"/>
+                            <constraint firstItem="nWp-tg-AO4" firstAttribute="centerY" secondItem="rOr-Vb-0uS" secondAttribute="centerY" id="9zq-gJ-Z1m"/>
                             <constraint firstItem="6cp-DK-fZA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RY8-e8-GzM"/>
                             <constraint firstItem="ksz-3H-Crn" firstAttribute="top" secondItem="m7I-1A-sza" secondAttribute="bottom" constant="38" id="UGK-MR-d6P"/>
-                            <constraint firstItem="6cp-DK-fZA" firstAttribute="top" secondItem="ksz-3H-Crn" secondAttribute="bottom" constant="58.5" id="cbN-i9-aeL"/>
+                            <constraint firstItem="6cp-DK-fZA" firstAttribute="top" secondItem="ksz-3H-Crn" secondAttribute="bottom" constant="40" id="cbN-i9-aeL"/>
                             <constraint firstItem="ksz-3H-Crn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fka-zh-GmN"/>
                             <constraint firstItem="m7I-1A-sza" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="90" id="kkt-fo-AED"/>
                             <constraint firstItem="m7I-1A-sza" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="mNR-li-n18"/>
@@ -153,10 +160,13 @@
                     <navigationItem key="navigationItem" title="Find Location" id="VlF-WQ-LOh"/>
                     <connections>
                         <outlet property="addressLabel" destination="HHj-wO-Y04" id="S2S-e6-3KS"/>
+                        <outlet property="cancelButton" destination="Oe3-fF-ULa" id="Rg1-xL-wyS"/>
                         <outlet property="indicator" destination="rOr-Vb-0uS" id="7Rv-Ue-3Tc"/>
                         <outlet property="latitudeLabel" destination="Rex-cR-Cz5" id="bl5-Kf-1Zw"/>
+                        <outlet property="locationView" destination="6cp-DK-fZA" id="M3m-TA-zUm"/>
                         <outlet property="longitudeLabel" destination="473-c8-6c6" id="JMH-eg-SP2"/>
                         <outlet property="messageLabel" destination="m7I-1A-sza" id="mqc-Nc-hSs"/>
+                        <outlet property="saveButton" destination="51v-lw-ebs" id="zXB-Sy-CyG"/>
                         <outlet property="searchButton" destination="ksz-3H-Crn" id="exK-eN-Mtu"/>
                     </connections>
                 </viewController>
@@ -527,7 +537,7 @@
         <scene sceneID="drd-ep-UTL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NR9-aL-YHL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="SearchIcon" id="UF7-NO-ypY"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="searchIcon" id="UF7-NO-ypY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pLt-OP-uoj">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -654,7 +664,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EJL-Mp-3DT"/>
+        <segue reference="X2P-sK-VWi"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="AccentColor"/>
     <resources>
@@ -662,7 +672,7 @@
         <image name="GetLocation" width="1669" height="723"/>
         <image name="ListIcon" width="25" height="25"/>
         <image name="MapICon" width="25" height="25"/>
-        <image name="SearchIcon" width="25" height="25"/>
+        <image name="searchIcon" width="25" height="25"/>
         <namedColor name="AccentColor">
             <color red="0.30799999833106995" green="0.56199997663497925" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -9,13 +9,28 @@ import UIKit
 import CoreLocation
 
 class CurrentLocationViewController: UIViewController {
-
+    
+    @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var searchButton: UIImageView!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView! {
+        didSet {
+            indicator.isHidden = true
+        }
+    }
+    @IBOutlet weak var saveButton: UIButton! {
+        didSet {
+            saveButton.layer.cornerRadius = 10
+        }
+    }
+    @IBOutlet weak var cancelButton: UIButton! {
+        didSet {
+            cancelButton.layer.cornerRadius = 10
+        }
+    }
     
     private let locationHelper = LocationHandler()
     private let tagViewSegueId = "TagCurrentLocation"
@@ -34,9 +49,14 @@ class CurrentLocationViewController: UIViewController {
             }
         }
     }
-
+    
+    @IBAction func cancle(_ sender: Any) {
+        locationHelper.clearSearchResult()
+        updateView()
+    }
+    
+    
     @IBAction func updateLocation(_ sender: Any) {
-        print("tap on image")
         locationHelper.initializeSearch()
         updateView()
         
@@ -47,8 +67,6 @@ class CurrentLocationViewController: UIViewController {
             DispatchQueue.main.async {
                 self.updateView()
             }
-            
-            self.locationHelper.searchLocation()
         }
     }
     
@@ -64,6 +82,16 @@ class CurrentLocationViewController: UIViewController {
     
     private func updateMessageStatus(with status: LocationStatus) {
         messageLabel.text = status.rawValue
+        searchButton.isUserInteractionEnabled = status != .searching
+        indicator.isHidden = status != .searching
+        locationView.isHidden = status != .updated
+        
+        if searchButton.isHidden {
+            indicator.stopAnimating()
+        }
+        else {
+            indicator.startAnimating()
+        }
         
         if (status == .disabled) {
             showDisabledAlert()
